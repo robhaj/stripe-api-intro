@@ -1,5 +1,5 @@
 ## Stripe.js
-Stripe.js makes it easy to collect credit card (and other similarly sensitive) details without having the information touch your server. If you need help after reading this, check out our answers to common questions or chat live with other developers in #stripe on freenode.
+Stripe.js makes it easy to collect credit card (and other similarly sensitive) details without having the information touch your server.
 
 ### Register an account with Stripe
 [Register] (https://dashboard.stripe.com/register)
@@ -11,9 +11,10 @@ You should see a Test Secret Key and Test Publishable Key.
 
 ### Including the Stripe Library on the Front-End
 - Including Stripe.js
-- Add this script tag to your page to get started with Stripe.js.
+- Add these script tags to your page to get started with Stripe.js.
 
 ``` <script type="text/javascript" src="https://js.stripe.com/v2/"></script>```
+``` <script type="text/javascript" src='https://checkout.stripe.com/checkout.js'></script> ```
 
 ### Setting Your Publishable Key
 
@@ -25,7 +26,7 @@ You must set your publishable key before using Stripe.js to identify your websit
 
 createToken converts sensitive card data to a single-use token which you can safely pass to your server to charge the user. The tutorial explains this flow in more detail.
 
-```Stripe.card.createToken({
+``` Stripe.card.createToken({
   number: $('.card-number').val(),
   cvc: $('.card-cvc').val(),
   exp_month: $('.card-expiry-month').val(),
@@ -43,3 +44,18 @@ createToken converts sensitive card data to a single-use token which you can saf
 - The following fields are optional but recommended to help prevent fraud:
 
   - cvc: card security code as a string, e.g. '123'.
+
+### Making a Payment
+- Once you have successfully got a token back from Stripe.card.createToken you must pass in that token to the stripe.charges.create function.
+```  
+var charge = stripe.charges.create({
+    amount: 1000, // amount in cents, again
+    currency: "usd",
+    source: stripeToken,
+    description: "Example charge"
+  }, function(err, charge) {
+    if (err && err.type === 'StripeCardError') {
+      // The card has been declined
+    }
+  });
+```
