@@ -5,11 +5,12 @@ Stripe.js makes it easy to collect credit card (and other similarly sensitive) d
 - Including Stripe.js
 - Add these script tags to your page to get started with Stripe.js.
 
-``` <script type="text/javascript" src="https://js.stripe.com/v2/"></script>```
-``` <script type="text/javascript" src='https://checkout.stripe.com/checkout.js'></script> ```
+``` <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+```
 
 ### Register an account with Stripe
-[Register] (https://dashboard.stripe.com/register)
+
+[Register](https://dashboard.stripe.com/register)
 
 ### API Keys
 Once registered and logged in, go to your Account Settings and click on the API Keys tab. Or click [here](https://dashboard.stripe.com/account/apikeys).
@@ -19,7 +20,9 @@ You should see a Test Secret Key and Test Publishable Key.
 
 You must set your publishable key before using Stripe.js to identify your website when communicating with Stripe.
 
-```Stripe.setPublishableKey('pk_test_5y4vYN3HeeeDJieExOlz2Fmk'); ```
+```
+Stripe.setPublishableKey('pk_test_5y4vYN3HeeeDJieExOlz2Fmk');
+```
 
 ### Collecting card details
 
@@ -30,7 +33,8 @@ createToken converts sensitive card data to a single-use token which you can saf
   cvc: $('.card-cvc').val(),
   exp_month: $('.card-expiry-month').val(),
   exp_year: $('.card-expiry-year').val()
-}, stripeResponseHandler); ```
+}, stripeResponseHandler);
+```
 
 - The first argument to createToken is a JavaScript object containing credit card data entered by the user. It should contain the following required fields:
 
@@ -86,12 +90,4 @@ Stripe.card.validateExpiry(2, 2020)         // true
 ```
 Stripe.card.validateCVC('123')              // true
 Stripe.card.validateCVC('')                 // false
-```
-
-##### card.cardType
-
-```
-Stripe.card.cardType('4242-4242-4242-4242') // "Visa"
-Stripe.card.cardType('378282246310005')     // "American Express"
-Stripe.card.cardType('1234')                // "Unknown"
 ```
