@@ -2,7 +2,6 @@
 Stripe.js makes it easy to collect credit card (and other similarly sensitive) details without having the information touch your server. More information can be found [here](https://stripe.com/docs/stripe.js)
 
 ### Including the Stripe Library on the Front-End
-- Including Stripe.js
 - Add these script tags to your page to get started with Stripe.js.
 ```
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -39,12 +38,10 @@ createToken converts sensitive card data to a single-use token which you can saf
 - The first argument to createToken is a JavaScript object containing credit card data entered by the user. It should contain the following required fields:
 
   - number: card number as a string without any separators, e.g. '4242424242424242'.
-
   - exp_month: two digit number representing the card's expiration month, e.g. 12.
   - exp_year: two or four digit number representing the card's expiration year, e.g. 2017.
 
 - The following fields are optional but recommended to help prevent fraud:
-
   - cvc: card security code as a string, e.g. '123'.
 
 ### Test Credit Cards
@@ -71,7 +68,6 @@ Stripe.card.validateCardNumber('4242 4242 4242 4242')
 // These invalid card numbers will all return false.
 
 Stripe.card.validateCardNumber('4242-1111-1111-1111')
-// (Doesn't pass the Luhn check.)
 Stripe.card.validateCardNumber('12345678')
 Stripe.card.validateCardNumber('mistake')
 ```
