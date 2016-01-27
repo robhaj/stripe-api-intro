@@ -4,8 +4,8 @@ Stripe.js makes it easy to collect credit card (and other similarly sensitive) d
 ### Including the Stripe Library on the Front-End
 - Including Stripe.js
 - Add these script tags to your page to get started with Stripe.js.
-
-``` <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+```
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 ```
 
 ### Register an account with Stripe
