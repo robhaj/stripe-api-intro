@@ -1,5 +1,5 @@
 ## Stripe.js
-Stripe.js makes it easy to collect credit card (and other similarly sensitive) details without having the information touch your server.
+Stripe.js makes it easy to collect credit card (and other similarly sensitive) details without having the information touch your server. More information can be found [here](https://stripe.com/docs/stripe.js)
 
 ### Register an account with Stripe
 [Register] (https://dashboard.stripe.com/register)
@@ -45,17 +45,46 @@ createToken converts sensitive card data to a single-use token which you can saf
 
   - cvc: card security code as a string, e.g. '123'.
 
-### Making a Payment
-- Once you have successfully got a token back from Stripe.card.createToken you must pass in that token to the stripe.charges.create function.
-```  
-var charge = stripe.charges.create({
-    amount: 1000, // amount in cents, again
-    currency: "usd",
-    source: stripeToken,
-    description: "Example charge"
-  }, function(err, charge) {
-    if (err && err.type === 'StripeCardError') {
-      // The card has been declined
-    }
-  });
+### Client-side Validation Methods
+
+#### card.validateCardNumber
+
+```
+// These will all return true, indicating a potentially valid card
+// number. (Letters, spaces, and other punctuation are ignored.)
+
+Stripe.card.validateCardNumber('4242424242424242')
+Stripe.card.validateCardNumber('4242-42424242-4242')
+Stripe.card.validateCardNumber('4242 4242 4242 4242')
+
+// These invalid card numbers will all return false.
+
+Stripe.card.validateCardNumber('4242-1111-1111-1111')
+// (Doesn't pass the Luhn check.)
+Stripe.card.validateCardNumber('12345678')
+Stripe.card.validateCardNumber('mistake')
+```
+
+### card.validateExpiry
+
+```
+Stripe.card.validateExpiry('02', '15')      // false
+Stripe.card.validateExpiry('02', '10')      // false
+Stripe.card.validateExpiry('02', '2020')    // true
+Stripe.card.validateExpiry(2, 2020)         // true
+```
+
+### card.validateCVC
+
+```
+Stripe.card.validateCVC('123')              // true
+Stripe.card.validateCVC('')                 // false
+```
+
+### card.cardType
+
+```
+Stripe.card.cardType('4242-4242-4242-4242') // "Visa"
+Stripe.card.cardType('378282246310005')     // "American Express"
+Stripe.card.cardType('1234')                // "Unknown"
 ```
